@@ -14,7 +14,7 @@ Framework-agnostic rate limiting for Node.js — works with **Next.js**, **Expre
 ## Installation
 
 ```bash
-npm install nawa-rate
+npm install @nawadotdev/nawa-rate
 ```
 
 Peer dependencies (install only what you need):
@@ -31,7 +31,7 @@ npm install ioredis       # Redis storage
 
 ```ts
 import express from "express";
-import { expressRateLimit } from "nawa-rate/express";
+import { expressRateLimit } from "@nawadotdev/nawa-rate/express";
 
 const app = express();
 
@@ -52,7 +52,7 @@ Applies to all `/api` routes from a single location:
 
 ```ts
 // middleware.ts
-import { nextRateLimit } from "nawa-rate/next";
+import { nextRateLimit } from "@nawadotdev/nawa-rate/next";
 import { NextResponse } from "next/server";
 
 const limiter = nextRateLimit({ limit: 60, window: "1m" });
@@ -72,7 +72,7 @@ export const config = { matcher: "/api/:path*" };
 
 ```ts
 // app/api/posts/route.ts
-import { withNextRateLimit } from "nawa-rate/next";
+import { withNextRateLimit } from "@nawadotdev/nawa-rate/next";
 
 async function GET(req: Request) {
   const posts = await db.post.findMany();
@@ -94,7 +94,7 @@ export const POST = withNextRateLimit(POST, { limit: 10,  window: "1m" });
 
 ```ts
 // app/api/search/route.ts
-import { nextRateLimit } from "nawa-rate/next";
+import { nextRateLimit } from "@nawadotdev/nawa-rate/next";
 
 const limiter = nextRateLimit({ limit: 30, window: "1m" });
 
@@ -114,7 +114,7 @@ export async function GET(req: Request) {
 
 ```ts
 // app/api/ai/route.ts
-import { createRateLimiter } from "nawa-rate";
+import { createRateLimiter } from "@nawadotdev/nawa-rate";
 import { getServerSession } from "next-auth";
 
 const limiter = createRateLimiter({
@@ -147,7 +147,7 @@ export async function POST(req: Request) {
 
 ```ts
 // lib/rate-limiter.ts  (singleton)
-import { createRateLimiter, RedisStorage } from "nawa-rate";
+import { createRateLimiter, RedisStorage } from "@nawadotdev/nawa-rate";
 import Redis from "ioredis";
 
 const redis = new Redis(process.env.REDIS_URL!);
@@ -173,7 +173,7 @@ export async function GET(req: Request) {
 
 ```ts
 // pages/api/hello.ts
-import { withRateLimit } from "nawa-rate/next";
+import { withRateLimit } from "@nawadotdev/nawa-rate/next";
 import type { NextApiRequest, NextApiResponse } from "next";
 
 function handler(req: NextApiRequest, res: NextApiResponse) {
@@ -188,8 +188,8 @@ export default withRateLimit(handler, { limit: 20, window: "1m" });
 ## Redis Storage
 
 ```ts
-import { expressRateLimit } from "nawa-rate/express";
-import { RedisStorage } from "nawa-rate";
+import { expressRateLimit } from "@nawadotdev/nawa-rate/express";
+import { RedisStorage } from "@nawadotdev/nawa-rate";
 import Redis from "ioredis";
 
 const redis = new Redis(process.env.REDIS_URL!);
@@ -261,7 +261,7 @@ Every response includes:
 Use `RateLimiter` directly for custom integrations:
 
 ```ts
-import { createRateLimiter } from "nawa-rate";
+import { createRateLimiter } from "@nawadotdev/nawa-rate";
 
 const limiter = createRateLimiter({ limit: 5, window: "10s" });
 

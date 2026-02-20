@@ -1,5 +1,5 @@
 {
-  "name": "nawa-rate",
+  "name": "@nawadotdev/nawa-rate",
   "version": "0.1.0",
   "description": "Framework-agnostic rate limiting middleware for Next.js, Express, and beyond",
   "keywords": [
